@@ -36,12 +36,7 @@ public class NameAndStartMenuHandler : MonoBehaviour
 
     public void OnStart()
     {
-        if (PlayerPrefs.GetInt("TestOne") == 1)
-            SceneManager.LoadScene(1);
-        else if (PlayerPrefs.GetInt("TestTwo") == 1)
-            SceneManager.LoadScene(2);
-        else if (PlayerPrefs.GetInt("TestThree") == 1)
-            SceneManager.LoadScene(3);
+        SceneManager.LoadScene(5);
     }
 
     public void OnPatientSelect()

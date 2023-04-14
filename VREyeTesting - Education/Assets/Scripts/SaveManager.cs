@@ -332,15 +332,9 @@ public class SaveManager : MonoBehaviour
     void NextScene()
     {
         int index = SceneManager.GetActiveScene().buildIndex;
-        if (index == 1)
+        if (index != 3)
         {
-            if (PlayerPrefs.GetInt("TestTwo") == 1)
-                SceneManager.LoadScene(2);
-        }
-        else if(index == 2)
-        {
-            if (PlayerPrefs.GetInt("TestThree") == 1)
-                SceneManager.LoadScene(3);
+            SceneManager.LoadScene(5);
         }
         else
         {
