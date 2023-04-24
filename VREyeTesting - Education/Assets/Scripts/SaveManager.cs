@@ -58,6 +58,8 @@ public class SaveManager : MonoBehaviour
 
     TestData lastValidTest;
 
+    FrequencyTracker frequencyTracker;
+
     //call this function to end the test and initiate the save
     public void setTestOver()
     {
@@ -72,12 +74,14 @@ public class SaveManager : MonoBehaviour
          lastValidTest = new TestData();
          testData = new List<TestData>();
          currentTest = SceneManager.GetActiveScene().buildIndex;
+         frequencyTracker = new FrequencyTracker(-15, 15, headset.transform);
     }
 
     // Update is called once per frame
     void Update()
     {
         thisVerboseData = focusManager.GetVerboseData();
+        frequencyTracker.checkRotation();
         UpdateCurrentData();
         CollectData();
     }
@@ -112,6 +116,8 @@ public class SaveManager : MonoBehaviour
             lastValidTest.rightGazeOriginMM = thisVerboseData.right.gaze_origin_mm;
         }
         GetTestVariables(temp);
+        temp.frequency = frequencyTracker.getFrequency() / currentTime;
+        Debug.Log("Frequency is: " + temp.frequency);
         testData.Add(temp);
         currentTime += Time.deltaTime;
         if (testOver)
@@ -286,6 +292,7 @@ public class SaveManager : MonoBehaviour
         }
         else if (currentTest == 3)
         {
+            if(float.IsInfinity(testData.frequency)) { testData.frequency = 0;  }
             testDataString += testData.leftEyePrecision
                             + ","
                             + testData.rightEyePrecision
@@ -340,5 +347,73 @@ public class SaveManager : MonoBehaviour
         {
             SceneManager.LoadScene(4);
         }
+    }
+}
+
+public class FrequencyTracker
+{
+    int frequency;
+    float leftAngle;
+    float rightAngle;
+    bool turningLeft;
+    bool turningRight;
+    bool testBeginning = true;
+    Transform headsetT;
+
+    public FrequencyTracker(float leftAngle, float rightAngle, Transform headsetT)
+    {
+        this.leftAngle = leftAngle / 180;
+        this.rightAngle = rightAngle / 180;
+        this.headsetT = headsetT;
+        turningLeft = false;
+        turningRight = false;
+    }
+
+    public void checkRotation()
+    {
+        float rotation = headsetT.rotation.y;
+        Debug.Log("Rotation is" + rotation);
+        if (testBeginning)
+        {
+            if (rotation <= leftAngle)
+            {
+                turningRight = true;
+                incrementFrequency();
+            }
+            else if (rotation >= rightAngle)
+            {
+                turningLeft = true;
+                incrementFrequency();
+            }
+            testBeginning = false;
+        }
+        else if (turningLeft)
+        {
+            if (rotation <= leftAngle)
+            {
+                turningRight = true;
+                turningLeft = false;
+                incrementFrequency();
+            }
+        }
+        else if (turningRight)
+        {
+            if (rotation >= rightAngle)
+            {
+                turningLeft = true;
+                turningRight = false;
+                incrementFrequency();
+            }
+        }
+    }
+
+    void incrementFrequency()
+    {
+        frequency++;
+    }
+
+    public int getFrequency()
+    {
+        return frequency;
     }
 }

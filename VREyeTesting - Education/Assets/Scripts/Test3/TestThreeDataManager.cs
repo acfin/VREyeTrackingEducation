@@ -26,6 +26,7 @@ public class TestThreeDataManager : MonoBehaviour
     Quaternion lastRotation = Quaternion.identity;
     Quaternion currentRotation = Quaternion.identity;
     bool inThreshold = false;
+    FrequencyTracker frequencyTracker;
 
     [System.Serializable]
     public class TestData
@@ -44,6 +45,7 @@ public class TestThreeDataManager : MonoBehaviour
     void Start()
     {
         lastRotation = headTracker.transform.rotation;
+        frequencyTracker = new FrequencyTracker(-15,15,headTracker.transform);
     }
 
     // Update is called once per frame
@@ -172,3 +174,4 @@ public class TestThreeDataManager : MonoBehaviour
         return output;
     }
 }
+

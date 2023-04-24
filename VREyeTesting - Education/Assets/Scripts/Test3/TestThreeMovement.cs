@@ -22,7 +22,6 @@ public class TestThreeMovement : MonoBehaviour
     {
         testDuration = PlayerPrefs.GetFloat("TestThreeDuration");
         focusObject.transform.position = new Vector3(0, camera.transform.position.y, 1);
-        focusObject.transform.position += Vector3.forward;
         focusObject.isStatic = true;
     }
 
@@ -49,8 +48,6 @@ public class TestThreeMovement : MonoBehaviour
         {
             lastTime = Time.time;
             currentRotation = camera.transform.rotation;
-            Debug.Log("Current is: " + currentRotation);
-            Debug.Log("Current is: " + lastRotation);
             speed = (Quaternion.Angle(currentRotation, lastRotation) / 0.01f);
             lastRotation = currentRotation;
         }

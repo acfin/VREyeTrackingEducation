@@ -24,10 +24,10 @@ public class TestOneMovement : MonoBehaviour
     private bool secondHalf = false;
     private bool inCooldown = false;
     private float cooldownTime = 1;
-    private float leftIterations = 0;
-    private float rightIterations = 0;
-    private float maxLeftIterations = 0;
-    private float maxRightIterations = 0;
+    private int leftIterations = 0;
+    private int rightIterations = 0;
+    private int maxLeftIterations = 0;
+    private int maxRightIterations = 0;
     private float currentTime = 0;
     private float lastTime = 0;
     float latency;
@@ -40,15 +40,15 @@ public class TestOneMovement : MonoBehaviour
     {
         angleToMove = PlayerPrefs.GetFloat("TestOneDegreesFromCenter");
         maxIterations = PlayerPrefs.GetInt("TestOneIterationsPerHalf");
-        maxLeftIterations = maxIterations / 2;
-        maxRightIterations = maxIterations / 2;
-        maxRightIterations += maxIterations % 2;
+        maxLeftIterations = (int)(maxIterations / 2);
+        maxRightIterations = (int)(maxIterations / 2);
+        maxRightIterations += (int)maxIterations % 2;
         latency = 0;
         InitializeAngles();
     }
 
     // Update is called once per frame
-    void FixedUpdate()
+    void Update()
     {
         HandleTesting();
         SetLatency();
@@ -65,20 +65,20 @@ public class TestOneMovement : MonoBehaviour
 
     void SetHandColor()
     {
-        if (FindVisibleFocusObject().name == "RightFocusObject")
+        if(inCooldown)
+        {
+            rightFocusHand.GetComponent<SkinnedMeshRenderer>().material = inactiveMaterial;
+            leftFocusHand.GetComponent<SkinnedMeshRenderer>().material = inactiveMaterial;
+        }
+        else if (FindVisibleFocusObject().name == "RightFocusObject")
         {
             rightFocusHand.GetComponent<SkinnedMeshRenderer>().material = activeMaterial;
             leftFocusHand.GetComponent<SkinnedMeshRenderer>().material = inactiveMaterial;
         }
-        if(FindVisibleFocusObject().name == "LeftFocusObject")
+        else if(FindVisibleFocusObject().name == "LeftFocusObject")
         {
             rightFocusHand.GetComponent<SkinnedMeshRenderer>().material = inactiveMaterial;
             leftFocusHand.GetComponent<SkinnedMeshRenderer>().material = activeMaterial;
-        }
-        if (FindVisibleFocusObject().name == "CenterObject")
-        {
-            rightFocusHand.GetComponent<SkinnedMeshRenderer>().material = inactiveMaterial;
-            leftFocusHand.GetComponent<SkinnedMeshRenderer>().material = inactiveMaterial;
         }
     }
 

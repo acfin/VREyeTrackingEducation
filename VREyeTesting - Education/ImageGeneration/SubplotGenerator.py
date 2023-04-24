@@ -13,7 +13,7 @@ class SubgraphGenerator:
         #self.recentVariables = recentVariables
         #self.longTermVariables = longTermVariables
         self.subjectName = subjectName
-        self.path = os.path.abspath(os.path.join(os.getcwd(), os.pardir)) + '\\VREyeTesting\\PatientResults\\' + subjectName + '\\'
+        self.path = os.path.abspath(os.path.join(os.getcwd(), os.pardir)) + '\\VREyeTesting - Education\\PatientResults\\' + subjectName + '\\'
         print(self.path);
         self.collect_data()
 
@@ -74,7 +74,7 @@ class SubgraphGenerator:
     fileCounter = 0
     pairPlots = []
     def create_subgraph(self, yVar, yName, dates = None, yVar2 = None):
-        imgPath = os.path.abspath(os.path.join(os.getcwd(), os.pardir)) + '\\VREyeTesting\\ImageGeneration\\'
+        imgPath = os.path.abspath(os.path.join(os.getcwd(), os.pardir)) + '\\VREyeTesting - Education\\ImageGeneration\\'
         plt.rcParams["figure.figsize"] = [7.50, 3.50]
         plt.rcParams["figure.autolayout"] = True
         

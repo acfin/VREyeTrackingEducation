@@ -23,10 +23,11 @@ public class ImageManager : MonoBehaviour
     void Start()
     {
         string path = "ImageGeneration";
-        PlayerPrefs.SetString("Name","John Doe");
+        PlayerPrefs.SetString("Name","Joeanna");
         DirectoryInfo d = new DirectoryInfo("PatientResults\\" + PlayerPrefs.GetString("Name"));
         DeleteImages(path);
-        UnityEngine.Debug.Log(run_cmd(path + "\\SubplotGenerator.py", PlayerPrefs.GetString("Name"), d.FullName));
+        UnityEngine.Debug.Log(run_cmd(path + "\\RecentSubplotGenerator.py", PlayerPrefs.GetString("Name"), d.FullName));
+        UnityEngine.Debug.Log(run_cmd(path + "\\LongtermSubplotGenerator.py", PlayerPrefs.GetString("Name"), d.FullName));
         //DirectoryInfo dir = new DirectoryInfo("");
 
         string filename = path + "\\recent1.png";
@@ -42,7 +43,7 @@ public class ImageManager : MonoBehaviour
         FileInfo[] files = d.GetFiles();
         foreach(FileInfo file in d.GetFiles("*.png"))
         {
-            UnityEngine.Debug.Log("Deleting " + file.FullName);
+            //UnityEngine.Debug.Log("Deleting " + file.FullName);
             File.Delete(file.FullName);
         }
     }
@@ -50,7 +51,7 @@ public class ImageManager : MonoBehaviour
     void LoadImages(string path)
     {
         DirectoryInfo d = new DirectoryInfo(path);
-        UnityEngine.Debug.Log("Path is" + d.FullName);
+        //UnityEngine.Debug.Log("Path is" + d.FullName);
 
         FileInfo[] recentFiles = d.GetFiles("recent*.png");
         FileInfo[] longTermFiles = d.GetFiles("longterm*.png");
@@ -70,7 +71,7 @@ public class ImageManager : MonoBehaviour
         byte[] fileData;
         if (File.Exists(filename))
         {
-            UnityEngine.Debug.Log("File Found");
+            //UnityEngine.Debug.Log("File Found");
             fileData = File.ReadAllBytes(filename);
             tex = new Texture2D(2, 2);
             tex.LoadImage(fileData); //..t$$anonymous$$s will auto-resize the texture dimensions.
@@ -79,7 +80,7 @@ public class ImageManager : MonoBehaviour
         }
         else
         {
-            UnityEngine.Debug.Log("File Not Found");
+            //UnityEngine.Debug.Log("File Not Found");
             return null;
         }
     }
@@ -166,7 +167,7 @@ public class ImageManager : MonoBehaviour
         }
         else
         {
-            UnityEngine.Debug.Log("Dropdown value is not recognized.");
+            //UnityEngine.Debug.Log("Dropdown value is not recognized.");
         }
     }
 
@@ -182,7 +183,7 @@ public class ImageManager : MonoBehaviour
         }
         else
         {
-            UnityEngine.Debug.Log("Dropdown value is not recognized.");
+            //UnityEngine.Debug.Log("Dropdown value is not recognized.");
         }
     }
 
