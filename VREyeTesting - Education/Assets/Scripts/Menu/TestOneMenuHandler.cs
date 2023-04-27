@@ -10,6 +10,12 @@ public class TestOneMenuHandler : MonoBehaviour
     [SerializeField] TMP_InputField iterationInput;
     [SerializeField] TextMeshProUGUI errorText;
 
+    private void Start()
+    {
+        SetDegrees();
+        SetIterations();
+    }
+
     public void SetDegrees()
     {
         if(float.TryParse(degreeInput.text, out float num))

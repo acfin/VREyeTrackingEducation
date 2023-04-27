@@ -8,6 +8,11 @@ public class TestThreeMenuHandler : MonoBehaviour
     [SerializeField] TMP_InputField durationInput;
     [SerializeField] TextMeshProUGUI errorText;
 
+    private void Start()
+    {
+        SetDuration();
+    }
+
     public void SetDuration()
     {
         if (float.TryParse(durationInput.text, out float num))

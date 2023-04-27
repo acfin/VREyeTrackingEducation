@@ -9,6 +9,12 @@ public class TestTwoMenuHandler : MonoBehaviour
     [SerializeField] TMP_InputField durationInput;
     [SerializeField] TextMeshProUGUI errorText;
 
+    private void Start()
+    {
+        SetDegrees();
+        SetDuration();
+    }
+
     public void SetDegrees()
     {
         if (float.TryParse(degreeInput.text, out float num))

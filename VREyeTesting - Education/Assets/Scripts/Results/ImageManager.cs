@@ -22,12 +22,12 @@ public class ImageManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        string path = "ImageGeneration";
-        PlayerPrefs.SetString("Name","Joeanna");
+        string path = "C:\\Users\\acfin\\Desktop\\PatientResults";
+        PlayerPrefs.SetString("Name","Test Patient");
         DirectoryInfo d = new DirectoryInfo("PatientResults\\" + PlayerPrefs.GetString("Name"));
-        DeleteImages(path);
-        UnityEngine.Debug.Log(run_cmd(path + "\\RecentSubplotGenerator.py", PlayerPrefs.GetString("Name"), d.FullName));
-        UnityEngine.Debug.Log(run_cmd(path + "\\LongtermSubplotGenerator.py", PlayerPrefs.GetString("Name"), d.FullName));
+        //DeleteImages(path);
+        //UnityEngine.Debug.Log(run_cmd(path + "\\RecentSubplotGenerator.py", PlayerPrefs.GetString("Name"), d.FullName));
+        //UnityEngine.Debug.Log(run_cmd(path + "\\LongtermSubplotGenerator.py", PlayerPrefs.GetString("Name"), d.FullName));
         //DirectoryInfo dir = new DirectoryInfo("");
 
         string filename = path + "\\recent1.png";
